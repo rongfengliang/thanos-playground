@@ -17,6 +17,8 @@ services:
     volumes:
     - ./prometheus1.yaml:/etc/prometheus/prometheus.yml
     - ./data1:/prometheus
+    ports: 
+    - "9090:9090"
     depends_on:
     - minio
   sidecar1:
@@ -50,6 +52,8 @@ services:
     volumes:
     - ./prometheus2.yaml:/etc/prometheus/prometheus.yml
     - ./data2:/prometheus
+    ports: 
+    - "9091:9090"
     depends_on:
     - minio
   sidecar2:
@@ -66,7 +70,10 @@ services:
     - --grpc-address=0.0.0.0:19090
     depends_on:
     - minio
-
+  grafana:
+    image: grafana/grafana
+    ports:
+    - "3000:3000"
   # to search on old metrics
   storer:
     image: improbable/thanos:v0.4.0
@@ -127,7 +134,8 @@ services:
   # a simple exporter to test some metrics
   domain_exporter:
     image: caarlos0/domain_exporter:v1
-
+    ports: 
+    - "9222:9222"
   # a load balancer to reverse-proxy to all queriers
   traefik:
     image: traefik

@@ -4,12 +4,12 @@ global:
   external_labels:
     region: test1
     replica: A
-
 scrape_configs:
-  - job_name: fake
+  - job_name: grafana
+    metrics_path: /metrics
     static_configs:
     - targets:
-      - fake:8989
+      - grafana:3000
   - job_name: domain
     metrics_path: /probe
     relabel_configs:

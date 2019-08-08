@@ -4,6 +4,10 @@ services:
   #
   # one prometheus and its sidecar
   #
+  alertmanager1:
+    image: prom/alertmanager
+    ports: 
+    - "9093:9093"
   prometheus1:
     image: prom/prometheus:v2.9.2
     command:
